@@ -1,0 +1,37 @@
+model_name: "MoCA3D_Cube"
+seed: 42
+
+# MoCA backbone (joint fine-tuning target)
+moca_config_path: "configs/MoCA_config.yaml"
+moca_checkpoint_path: "checkpoints/moca3d.safetensors"
+
+# Data
+wds_root: "datasets/moca_wds"
+dino_img_size: 512
+random_mix: true
+max_cap: 4
+train_epoch_length: 50000
+val_epoch_length: 5000
+
+# Optimization
+batch_size: 16
+num_workers: 4
+num_epochs: 100
+warmup_epochs: 5
+learning_rate: 1e-4
+# Joint FT: MoCA LR = BBox3D LR * 0.02 (1/50)
+moca_lr_ratio: 0.02
+# moca_learning_rate: 2e-6  # optional explicit override
+ema_decay: 0.999
+weight_decay: 2e-3
+grad_accum_steps: 2
+grad_clip_norm: 5.0
+amp: true
+
+# BBox3D MLP
+hidden_dim: 256
+
+# Logging / checkpoints
+val_interval: 1
+save_interval: 50
+best_iou_inv: 0.0

@@ -1,0 +1,119 @@
+# Paths
+dinov3_checkpoint_path: "checkpoints/dinov3_vitl16_pretrain_lvd1689m-8aa4cbdd.pth"
+wds_root: "datasets/moca_wds"
+json_root: "datasets/MoCA3D"
+data_root: "datasets/"
+
+# System
+device: "cuda"
+model_name: "MoCA3D" 
+seed: 42
+  
+# Data
+data:
+  dino_image_size: 512
+  target_quality: "Good"
+  min_area_object: 1024 # 32x32
+max_depth: 100.0
+input_size: 512.0
+heatmap_size: 128.0
+
+# Data Augmentation
+aug:
+  box_jitter_sigma: 0.02
+  feature_noise_sigma: 0.01
+  flip_prob: 0.4
+  rot_range: 10.0
+
+aug_token:
+  token_mask_prob: 0.25
+  mask_block_prob: 0.4
+  exclude_masked_token_attn: True
+  block_mask_hw: 4
+  mask_scale_by_keep_ratio: False
+aug_box:
+  use_box_prior: True
+  box_prior_init_logit: -3.0
+  box_prior_dropout: 0.1
+  box_prior_clamp: 4.0
+  box_prior_ch: 4
+
+# Model Dimensions
+feature_generator_dim: 512  # Decreasing Fine loss from 5.0 -> 2.0, feature augmentation, offset heads initializaiton
+d_model: 384                # Transformer model dimension
+skip_channels: 256          # Channels for skip connection after feature generator
+
+# Model Hyperparameters
+dropout: 0.15
+activation: "relu"
+feature_mode: True  # Whether to use feature generator a.k.a. training mode
+
+# Prediction Heads Config
+prediction_heads: [
+  "corner heatmaps", "corner depths"
+]
+soft_argmax:
+  beta: 100.0
+  is_sigmoid: False
+
+# Transformer Encoder Config
+encoder:
+  nhead: 6
+  dim_feedforward: 1024
+  num_layers: 4
+
+# Transformer Decoder Config
+decoder:
+  nhead: 6
+  dim_feedforward: 1024
+  num_layers: 4
+
+# Positional Encoding Config
+position_encoding:
+  temperature: 10000
+  normalize: False
+  scale: null
+
+# Box Embedding Config
+box_embedding:
+  temperature: 10000
+  scale: null
+
+# Depth Head Config
+depth_head_hidden_dim: 256
+depth_head_bottleneck_dim: 64
+depth_head_dropout: 0.15
+depth_head_gamma: 2.0
+depth_head_use_uv: True
+depth_head_detach_heatmap: True
+depth_head_min_depth: 1e-3
+
+# Loss configs
+loss_weights:
+  start_coarse: 50.0 # Weights for coarse loss
+  end_coarse: 1.0
+  start_depth: 1.0  # depth loss weight
+  end_depth: 5.0
+  start_fine: 2.0
+  end_fine: 2.0
+  warmup_threshold: 0.05
+peak: 50.0 # initial peak weight for coarse loss
+threshold: 0.05
+
+# Hyperparameters
+# maintain grad_accum_steps * batch_size * world_size = 192
+num_epochs: 120
+warmup_epochs: 5
+grad_accum_steps: 2
+batch_size: 32
+learning_rate: 2e-4
+lr_multipliers:
+  decoder: 1.5
+  box_embedding: 2.0
+weight_decay: 0.02
+num_workers: 2
+epoch_length: 50000
+
+# Validation and Logging
+val_interval: 1
+save_interval: 60

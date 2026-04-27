@@ -1,0 +1,36 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Local environment files
+.env
+.venv/
+env/
+venv/
+
+# Downloaded model weights and training checkpoints
+# README.md points users to DINOv3 and MoCA3D checkpoint download locations.
+/checkpoints/
+
+# Local dataset assets, generated MoCA3D annotations, and WDS shards
+# Public data should be prepared by users following README.md.
+/datasets/
+
+# Training/evaluation outputs
+/outputs/
+/logs/
+/runs/
+/wandb/
+/tensorboard/
+*.log
+
+# Local smoke-test scratch files
+/.tmp*/
+/*_smoke/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
