@@ -17,6 +17,7 @@
 
 <p align="center">
   <a href="https://arxiv.org/abs/2603.19538"><img src="https://img.shields.io/badge/arXiv-2603.19538-b31b1b.svg" alt="arXiv"></a>
+  <a href="https://jeoncwcw.github.io/moca3d/"><img src="https://img.shields.io/badge/Project-Page-blue.svg" alt="Project Page"></a>
   <a href="https://huggingface.co/jeoncwcw/MoCA3D"><img src="https://img.shields.io/badge/🤗-Model_Weights-yellow.svg" alt="HuggingFace"></a>
 </p>
 
