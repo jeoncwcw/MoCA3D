@@ -49,7 +49,7 @@ Install PyTorch3D and its runtime dependencies:
 
 ```bash
 pip install fvcore iopath
-pip install "git+https://github.com/facebookresearch/pytorch3d.git@v0.7.8" --no-build-isolation
+pip install "git+https://github.com/facebookresearch/pytorch3d.git@V0.7.8" --no-build-isolation
 ```
 
 You can verify the main entrypoints with:
